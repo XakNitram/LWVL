@@ -1,7 +1,7 @@
 #include "Utils.h"
 
 namespace lwvl {
-	std::string readFile(const std::string& filepath) {
+    std::string readFile(const std::string& filepath) {
 		// need to figure out how to handle errors on this.
 		std::ifstream file(filepath);
 
