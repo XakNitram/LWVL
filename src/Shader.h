@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
-#include <string_view>
 #include <iostream>
 #include <GL/glew.h>
 #include "GLUtils.h"
+
+#include "Utils.h"
 
 namespace lwvl {
 	struct Location {
@@ -22,7 +23,10 @@ namespace lwvl {
 	public:
 		Shader();
 		Shader(const std::string& vertexSource, const std::string& fragmentSource);
+		Shader(Shader& other);
 		~Shader();
+
+		static Shader fromFiles(const std::string& vertexFile, const std::string& fragmentFile);
 
 		static unsigned int compileShader(int mode, const std::string& source);
 
@@ -51,5 +55,6 @@ namespace lwvl {
 		void setOrthographic2D(const Location& location, float top, float bottom, float right, float left);
 
 		void bind() const;
+		static void clear();
 	};
 }

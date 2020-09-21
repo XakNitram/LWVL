@@ -33,10 +33,18 @@ lwvl::Shader::Shader(const std::string& vertexSource, const std::string& fragmen
 	GLCall(glDeleteShader(fs));
 }
 
+lwvl::Shader::Shader(Shader& other): m_id(other.m_id) {
+	other.m_id = 0;
+}
+
 lwvl::Shader::~Shader() {
 	if (m_id > 0) {
 		GLCall(glDeleteProgram(m_id));
 	}
+}
+
+Shader lwvl::Shader::fromFiles(const std::string& vertexFile, const std::string& fragmentFile) {
+	return Shader(readFile(vertexFile), readFile(fragmentFile));
 }
 
 unsigned int lwvl::Shader::compileShader(int mode, const std::string& source) {
@@ -224,4 +232,8 @@ void lwvl::Shader::setOrthographic2D(const Location& location, float top, float 
 
 void lwvl::Shader::bind() const {
 	GLCall(glUseProgram(m_id));
+}
+
+void lwvl::Shader::clear() {
+	GLCall(glUseProgram(0));
 }
