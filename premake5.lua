@@ -1,37 +1,14 @@
 project "LWVL"
-  kind "StaticLib"
-  language "C++"
-  cppdialect "C++17"
-  staticruntime "On"
+    kind "StaticLib"
 
-  -- must define a variable named output_dir in the workspace prmake5.lua
-  targetdir("bin/" .. output_dir .. "/${prj.name}")
-  objdir("bin/intermediates/" .. output_dir .. "/${prj.name}")
+    targetdir("bin/%{cfg.buildcfg}")
+    objdir("bin/intermediates/%{cfg.buildcfg}")
 
-  pchheader "lwvlpch.h"
-  pchsource "src/lwvlpch.cpp"
-
-  files {
-    "src/**.h",
-    "src/**.cpp"
-  }
-
-  includedirs {
-    "src",
-    "vendor/GLEW/include"
-  }
-
-  filter "configurations:Debug"
-    defines {
-      "_DEBUG"
+    files {
+        "**.h",
+        "**.cpp"
     }
-    runtime "Debug"
-    symbols "on"
 
-  filter "configurations:Release"
-    runtime "Release"
-    optimize "On"
-  
-  filter "configurations:Distribution"
-    runtime "Release"
-    optimize "On"
+    links {
+        "opengl32"
+    }

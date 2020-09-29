@@ -1,2 +1,4 @@
-*.vcproj
+*.vcproj*
+*.sln*
+.vs/
 bin/
